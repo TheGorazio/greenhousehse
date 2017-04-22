@@ -11,8 +11,8 @@ const channels = [
     'devices/lora/807B85902000017A/bme280/humidity',
     'devices/lora/807B85902000017A/bme280/temperature',
     'devices/lora/807B85902000017A/bme280/pressure',
-    'devices/lora/807B85902000017A/adc2',
-    'devices/lora/807B85902000017A/adc3'
+    'devices/lora/807B85902000017A/adc/adc2',
+    'devices/lora/807B85902000017A/adc/adc3'
 ];
 let values = {
     humidity: 0,
@@ -35,7 +35,7 @@ redisClient.on('connect', () => {
 
         redisClient.on('message', (channel, msg) => {
             console.log(msg);
-            values[channel.split('/')[4] || channel.split('/')[3]] = msg;
+            values[channel.split('/')[4]] = msg;
             socket.emit('data', values);
         });
         
