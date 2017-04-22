@@ -1,7 +1,7 @@
 const express = require('express'); 
 const server = express()
   .use((req, res) => res.send('Privet'))
-  .listen(8181, () => console.log(`Listening on ${ 8181 }`));
+  .listen(process.env.PORT || 5000);
 const io = require('socket.io')(server);
 const redis = require('redis');
 const redisClient = redis.createClient(6379, 'iotRedis.redis.cache.windows.net'); 
