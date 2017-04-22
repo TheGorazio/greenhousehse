@@ -1,7 +1,7 @@
 const express = require('express'); 
 const server = express()
   .use((req, res) => res.sendFile(INDEX) )
-  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+  .listen(8181, () => console.log(`Listening on ${ 8080 }`));
 const io = require('socket.io')(server);
 const redis = require('redis');
 const redisClient = redis.createClient(6379, 'iotRedis.redis.cache.windows.net'); 
@@ -34,6 +34,7 @@ redisClient.on('connect', () => {
         socket.emit('initial data', values);
 
         redisClient.on('message', (channel, msg) => {
+            console.log(msg);
             values[channel.split('/')[4] || channel.split('/')[3]] = msg;
             socket.emit('data', values);
         });
