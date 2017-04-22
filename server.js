@@ -1,4 +1,8 @@
-const io = require('socket.io')(80);
+const express = require('express'); 
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+const io = require('socket.io')(server);
 const redis = require('redis');
 const redisClient = redis.createClient(6379, 'iotRedis.redis.cache.windows.net'); 
 const password = 'i5hFZUx3D6GTMtA/UcI+P3HFf4O63I/HYbEEa/p/aJU=';
